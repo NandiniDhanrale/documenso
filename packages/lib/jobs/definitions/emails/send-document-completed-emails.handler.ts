@@ -67,7 +67,7 @@ export const run = async ({ payload, io }: { payload: TSendDocumentCompletedEmai
     throw new Error('Document has no recipients');
   }
 
-  const { branding, emailLanguage, senderEmail, replyToEmail, isOrganisationOwnerDisabled, organisationId, claims } =
+  const { branding, emailLanguage, senderEmail, replyToEmail, organisationId, claims, emailsDisabled } =
     await getEmailContext({
       emailType: 'RECIPIENT',
       source: {
@@ -77,8 +77,8 @@ export const run = async ({ payload, io }: { payload: TSendDocumentCompletedEmai
       meta: envelope.documentMeta,
     });
 
-  // Don't send completion emails on behalf of a disabled (e.g. banned) account.
-  if (envelope.user.disabled || isOrganisationOwnerDisabled) {
+  // Don't send completion emails if the organisation has email sending disabled or the owner is disabled (e.g. banned).
+  if (envelope.user.disabled || emailsDisabled) {
     return;
   }
 
@@ -211,6 +211,8 @@ export const run = async ({ payload, io }: { payload: TSendDocumentCompletedEmai
       };
 
       const downloadLink = `${NEXT_PUBLIC_WEBAPP_URL()}/sign/${recipient.token}/complete`;
+      const reportUrl =
+        recipient.role === RecipientRole.CC ? `${NEXT_PUBLIC_WEBAPP_URL()}/report/${recipient.token}` : undefined;
 
       const template = createElement(DocumentCompletedEmailTemplate, {
         documentName: envelope.title,
@@ -220,6 +222,7 @@ export const run = async ({ payload, io }: { payload: TSendDocumentCompletedEmai
           isDirectTemplate && envelope.documentMeta?.message
             ? renderCustomEmailTemplate(envelope.documentMeta.message, customEmailTemplate)
             : undefined,
+        reportUrl,
       });
 
       const [html, text] = await Promise.all([

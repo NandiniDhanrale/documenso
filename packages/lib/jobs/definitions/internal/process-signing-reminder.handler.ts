@@ -16,6 +16,7 @@ import { createElement } from 'react';
 import { getI18nInstance } from '../../../client-only/providers/i18n-server';
 import { NEXT_PUBLIC_WEBAPP_URL } from '../../../constants/app';
 import { RECIPIENT_ROLES_DESCRIPTION } from '../../../constants/recipient-roles';
+import { buildEnvelopeEmailHeaders } from '../../../server-only/email/build-envelope-email-headers';
 import { getEmailContext } from '../../../server-only/email/get-email-context';
 import { assertOrganisationRatesAndLimits } from '../../../server-only/rate-limit/assert-organisation-rates-and-limits';
 import { updateRecipientNextReminder } from '../../../server-only/recipient/update-recipient-next-reminder';
@@ -107,9 +108,9 @@ export const run = async ({ payload, io }: { payload: TProcessSigningReminderJob
     organisationType,
     senderEmail,
     replyToEmail,
-    isOrganisationOwnerDisabled,
     organisationId,
     claims,
+    emailsDisabled,
   } = await getEmailContext({
     emailType: 'RECIPIENT',
     source: {
@@ -119,9 +120,10 @@ export const run = async ({ payload, io }: { payload: TProcessSigningReminderJob
     meta: envelope.documentMeta,
   });
 
-  // Don't send reminders on behalf of a disabled (e.g. banned) account.
-  if (envelope.user.disabled || isOrganisationOwnerDisabled) {
-    io.logger.info(`Envelope ${envelope.id} owner is disabled, skipping reminder`);
+  // Don't send reminders if the owner is disabled (e.g. banned) or the organisation
+  // has email sending disabled.
+  if (envelope.user.disabled || emailsDisabled) {
+    io.logger.info(`Envelope ${envelope.id} skipping reminder: owner disabled or organisation emails disabled`);
     return;
   }
 
@@ -154,6 +156,7 @@ export const run = async ({ payload, io }: { payload: TProcessSigningReminderJob
 
   const assetBaseUrl = NEXT_PUBLIC_WEBAPP_URL() || 'http://localhost:3000';
   const signDocumentLink = `${NEXT_PUBLIC_WEBAPP_URL()}/sign/${recipient.token}`;
+  const reportUrl = `${NEXT_PUBLIC_WEBAPP_URL()}/report/${recipient.token}`;
 
   // Meter reminder emails against the organisation email quota/stats. Reminders
   // are unsolicited (the recipient didn't opt in to them) and can recur, so they
@@ -188,6 +191,7 @@ export const run = async ({ payload, io }: { payload: TProcessSigningReminderJob
       signDocumentLink,
       customBody: emailMessage,
       role: recipient.role,
+      reportUrl,
     });
 
     const [html, text] = await Promise.all([
@@ -209,6 +213,11 @@ export const run = async ({ payload, io }: { payload: TProcessSigningReminderJob
       subject: emailSubject,
       html,
       text,
+      headers: buildEnvelopeEmailHeaders({
+        userId: envelope.userId,
+        envelopeId: envelope.id,
+        teamId: envelope.teamId,
+      }),
     });
 
     await prisma.documentAuditLog.create({
