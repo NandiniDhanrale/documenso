@@ -1,3 +1,5 @@
+import Konva from 'konva';
+
 import { DEFAULT_STANDARD_FONT_SIZE } from '../../constants/pdf';
 import type { TImageAnnotationFieldMeta } from '../../types/field-meta';
 import {
