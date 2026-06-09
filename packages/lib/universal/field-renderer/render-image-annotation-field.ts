@@ -35,22 +35,25 @@ export const renderImageAnnotationFieldElement = (field: FieldToRender, options:
   const fontSize = fieldMeta?.fontSize || DEFAULT_STANDARD_FONT_SIZE;
 
   if (field.inserted && field.customText) {
-    const image = new Konva.Image({
-      name: 'annotation-image',
-      width: fieldWidth - 4,
-      height: fieldHeight - 4,
-      x: 2,
-      y: 2,
-    });
-
     const imgElement = new window.Image();
     imgElement.src = field.customText;
     imgElement.onload = () => {
-      image.image(imgElement);
-      image.getLayer()?.batchDraw();
-    };
+      if (!fieldGroup.getLayer()) {
+        return;
+      }
 
-    fieldGroup.add(image);
+      const image = new Konva.Image({
+        name: 'annotation-image',
+        width: fieldWidth - 4,
+        height: fieldHeight - 4,
+        x: 2,
+        y: 2,
+        image: imgElement,
+      });
+
+      fieldGroup.add(image);
+      fieldGroup.getLayer()?.batchDraw();
+    };
 
     const checkMark = new Konva.Text({
       x: fieldWidth - 20,
