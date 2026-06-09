@@ -8,6 +8,7 @@ import {
   ZDateFieldMeta,
   ZDropdownFieldMeta,
   ZEmailFieldMeta,
+  ZImageAnnotationFieldMeta,
   ZInitialsFieldMeta,
   ZNameFieldMeta,
   ZNumberFieldMeta,
@@ -176,6 +177,13 @@ export const ZFieldDropdownSchema = BaseFieldSchemaUsingNumbers.extend({
 
 export type TFieldDropdown = z.infer<typeof ZFieldDropdownSchema>;
 
+export const ZFieldImageAnnotationSchema = BaseFieldSchemaUsingNumbers.extend({
+  type: z.literal(FieldType.IMAGE_ANNOTATION),
+  fieldMeta: ZImageAnnotationFieldMeta,
+});
+
+export type TFieldImageAnnotation = z.infer<typeof ZFieldImageAnnotationSchema>;
+
 /**
  * The full field schema which will enforce all types and meta fields.
  */
@@ -190,6 +198,7 @@ export const ZFullFieldSchema = z.discriminatedUnion('type', [
   ZFieldRadioSchema,
   ZFieldCheckboxSchema,
   ZFieldDropdownSchema,
+  ZFieldImageAnnotationSchema,
 ]);
 
 export type TFullFieldSchema = z.infer<typeof ZFullFieldSchema>;

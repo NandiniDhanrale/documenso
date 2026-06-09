@@ -36,6 +36,7 @@ import { handleEmailFieldClick } from '~/utils/field-signing/email-field';
 import { handleInitialsFieldClick } from '~/utils/field-signing/initial-field';
 import { handleNameFieldClick } from '~/utils/field-signing/name-field';
 import { handleNumberFieldClick } from '~/utils/field-signing/number-field';
+import { handleImageAnnotationFieldClick } from '~/utils/field-signing/image-annotation-field';
 import { handleSignatureFieldClick } from '~/utils/field-signing/signature-field';
 import { handleTextFieldClick } from '~/utils/field-signing/text-field';
 
@@ -404,6 +405,21 @@ export const EnvelopeSignerPageRenderer = ({ pageData }: { pageData: PageRenderD
 
                 setSignature(payload.value);
               } else {
+                await signField(field.id, payload);
+              }
+            })
+            .finally(() => {
+              loadingSpinnerGroup.destroy();
+            });
+        })
+        /**
+         * IMAGE_ANNOTATION FIELD.
+         */
+        .with({ type: FieldType.IMAGE_ANNOTATION }, (field) => {
+          void handleImageAnnotationFieldClick({ field })
+            .then(async (payload) => {
+              if (payload) {
+                fieldGroup.add(loadingSpinnerGroup);
                 await signField(field.id, payload);
               }
             })
