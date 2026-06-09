@@ -185,8 +185,16 @@ export const ZSignatureFieldMeta = ZBaseFieldMeta.extend({
 
 export type TSignatureFieldMeta = z.infer<typeof ZSignatureFieldMeta>;
 
+export const ZImageAnnotationFieldMeta = ZBaseFieldMeta.extend({
+  type: z.literal('imageAnnotation'),
+  backgroundImage: z.string().optional(),
+});
+
+export type TImageAnnotationFieldMeta = z.infer<typeof ZImageAnnotationFieldMeta>;
+
 export const ZFieldMetaNotOptionalSchema = z.discriminatedUnion('type', [
   ZSignatureFieldMeta,
+  ZImageAnnotationFieldMeta,
   ZInitialsFieldMeta,
   ZNameFieldMeta,
   ZEmailFieldMeta,
@@ -263,6 +271,10 @@ export const ZFieldAndMetaSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal(FieldType.FREE_SIGNATURE),
     fieldMeta: z.undefined(),
+  }),
+  z.object({
+    type: z.literal(FieldType.IMAGE_ANNOTATION),
+    fieldMeta: ZImageAnnotationFieldMeta.optional(),
   }),
   z.object({
     type: z.literal(FieldType.INITIALS),
@@ -386,9 +398,15 @@ export const FIELD_SIGNATURE_META_DEFAULT_VALUES: TSignatureFieldMeta = {
   overflow: DEFAULT_SIGNATURE_OVERFLOW_MODE,
 };
 
+export const FIELD_IMAGE_ANNOTATION_META_DEFAULT_VALUES: TImageAnnotationFieldMeta = {
+  type: 'imageAnnotation',
+  fontSize: DEFAULT_FIELD_FONT_SIZE,
+};
+
 export const FIELD_META_DEFAULT_VALUES: Record<FieldType, TFieldMetaSchema> = {
   [FieldType.SIGNATURE]: FIELD_SIGNATURE_META_DEFAULT_VALUES,
   [FieldType.FREE_SIGNATURE]: undefined,
+  [FieldType.IMAGE_ANNOTATION]: FIELD_IMAGE_ANNOTATION_META_DEFAULT_VALUES,
   [FieldType.INITIALS]: FIELD_INITIALS_META_DEFAULT_VALUES,
   [FieldType.NAME]: FIELD_NAME_META_DEFAULT_VALUES,
   [FieldType.EMAIL]: FIELD_EMAIL_META_DEFAULT_VALUES,
@@ -408,6 +426,10 @@ export const ZEnvelopeFieldAndMetaSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal(FieldType.FREE_SIGNATURE),
     fieldMeta: z.undefined(),
+  }),
+  z.object({
+    type: z.literal(FieldType.IMAGE_ANNOTATION),
+    fieldMeta: ZImageAnnotationFieldMeta.optional().default(FIELD_IMAGE_ANNOTATION_META_DEFAULT_VALUES),
   }),
   z.object({
     type: z.literal(FieldType.INITIALS),

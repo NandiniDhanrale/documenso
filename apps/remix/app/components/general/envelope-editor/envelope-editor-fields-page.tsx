@@ -58,6 +58,7 @@ import { EnvelopeRecipientSelector } from './envelope-recipient-selector';
 const FieldSettingsTypeTranslations: Record<FieldType, MessageDescriptor> = {
   [FieldType.SIGNATURE]: msg`Signature Settings`,
   [FieldType.FREE_SIGNATURE]: msg`Free Signature Settings`,
+  [FieldType.IMAGE_ANNOTATION]: msg`Mark on Picture Settings`,
   [FieldType.TEXT]: msg`Text Settings`,
   [FieldType.DATE]: msg`Date Settings`,
   [FieldType.EMAIL]: msg`Email Settings`,

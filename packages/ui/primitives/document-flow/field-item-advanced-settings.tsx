@@ -144,6 +144,11 @@ const getDefaultState = (fieldType: FieldType): FieldMeta => {
         required: false,
         readOnly: false,
       };
+    case FieldType.IMAGE_ANNOTATION:
+      return {
+        type: 'imageAnnotation',
+        fontSize: 14,
+      };
     default:
       throw new Error(`Unsupported field type: ${fieldType}`);
   }
