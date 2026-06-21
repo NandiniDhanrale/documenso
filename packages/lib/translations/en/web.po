@@ -479,6 +479,14 @@ msgid "{user} approved the document"
 msgstr "{user} approved the document"
 
 #: packages/lib/utils/document-audit-logs.ts
+msgid "{user} authenticated with the signing provider"
+msgstr "{user} authenticated with the signing provider"
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "{user} authorised the remote signature"
+msgstr "{user} authorised the remote signature"
+
+#: packages/lib/utils/document-audit-logs.ts
 msgid "{user} CC'd the document"
 msgstr "{user} CC'd the document"
 
@@ -540,6 +548,10 @@ msgstr "{user} replaced the PDF for envelope item {0}"
 #: packages/lib/utils/document-audit-logs.ts
 msgid "{user} requested a 2FA token for the document"
 msgstr "{user} requested a 2FA token for the document"
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "{user} requested a remote signature"
+msgstr "{user} requested a remote signature"
 
 #. placeholder {0}: data.recipientEmail
 #: packages/lib/utils/document-audit-logs.ts
@@ -612,6 +624,14 @@ msgstr "{user} validated a 2FA token for the document"
 msgid "{user} viewed the document"
 msgstr "{user} viewed the document"
 
+#: packages/lib/utils/document-audit-logs.ts
+msgid "{user}'s remote signature was applied"
+msgstr "{user}'s remote signature was applied"
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "{user}'s signing provider authentication failed"
+msgstr "{user}'s signing provider authentication failed"
+
 #: apps/remix/app/components/tables/internal-audit-log-table.tsx
 #: packages/lib/server-only/pdf/render-audit-logs.ts
 msgid "{userAgent}"
@@ -637,8 +657,8 @@ msgstr "{visibleRows, plural, one {Showing # result.} other {Showing # results.}
 #. placeholder {0}: envelope.title
 #: apps/remix/app/routes/_recipient+/sign.$token+/_index.tsx
 #: apps/remix/app/routes/_recipient+/sign.$token+/_index.tsx
-msgid "<0>\"{0}\"</0>is no longer available to sign"
-msgstr "<0>\"{0}\"</0>is no longer available to sign"
+msgid "<0>\"{0}\"</0> is no longer available to sign"
+msgstr "<0>\"{0}\"</0> is no longer available to sign"
 
 #: packages/email/templates/organisation-account-link-confirmation.tsx
 msgid "<0>{organisationName}</0> has requested to create an account on your behalf."
@@ -1852,6 +1872,14 @@ msgstr "An error occurred while uploading your document."
 msgid "An error occurred. Please try again later."
 msgstr "An error occurred. Please try again later."
 
+#: packages/lib/jobs/definitions/emails/send-organisation-limit-alert-email.handler.ts
+msgid "An organisation has exceeded their fair use limits"
+msgstr "An organisation has exceeded their fair use limits"
+
+#: packages/lib/jobs/definitions/emails/send-organisation-limit-alert-email.handler.ts
+msgid "An organisation is nearing their fair use limits"
+msgstr "An organisation is nearing their fair use limits"
+
 #: apps/remix/app/routes/_unauthenticated+/organisation.sso.confirmation.$token.tsx
 msgid "An organisation wants to create an account for you. Please review the details below."
 msgstr "An organisation wants to create an account for you. Please review the details below."
@@ -1976,9 +2004,27 @@ msgstr "API requests have been temporarily paused"
 msgid "API Tokens"
 msgstr "API Tokens"
 
+#: apps/remix/app/components/general/organisations/organisation-quota-banner.tsx
+msgid "API usage is approaching fair use limits"
+msgstr "API usage is approaching fair use limits"
+
 #: apps/remix/app/routes/_authenticated+/admin+/stats.tsx
 msgid "App Version"
 msgstr "App Version"
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-signing-in-progress-page.tsx
+msgid "Applying your signature"
+msgstr "Applying your signature"
+
+#: apps/remix/app/components/general/organisations/organisation-quota-banner.tsx
+msgid "Approaching fair use limit"
+msgstr "Approaching fair use limit"
+
+#: packages/email/templates/organisation-limit-alert.tsx
+#: packages/email/templates/organisation-limit-alert.tsx
+#: packages/lib/jobs/definitions/emails/send-organisation-limit-alert-email.handler.ts
+msgid "Approaching Your Plan Limits"
+msgstr "Approaching Your Plan Limits"
 
 #: apps/remix/app/components/general/document-signing/document-signing-complete-dialog.tsx
 #: apps/remix/app/components/general/document-signing/document-signing-complete-dialog.tsx
@@ -2509,6 +2555,7 @@ msgstr "Can't find someone?"
 #: apps/remix/app/components/dialogs/session-logout-all-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-checkbox-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-email-dialog.tsx
+#: apps/remix/app/components/dialogs/sign-field-highlight-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-initials-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-name-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-number-dialog.tsx
@@ -2609,6 +2656,10 @@ msgstr "Ccers"
 #: apps/remix/app/components/forms/editor/editor-field-generic-field-forms.tsx
 msgid "Center"
 msgstr "Center"
+
+#: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-page-renderer.tsx
+msgid "Change Field Type"
+msgstr "Change Field Type"
 
 #: apps/remix/app/components/general/app-command-menu.tsx
 msgid "Change language"
@@ -4394,6 +4445,10 @@ msgstr "Document upload disabled due to unpaid invoices"
 msgid "Document uploaded"
 msgstr "Document uploaded"
 
+#: apps/remix/app/components/general/organisations/organisation-quota-banner.tsx
+msgid "Document usage is approaching fair use limits"
+msgstr "Document usage is approaching fair use limits"
+
 #: packages/lib/utils/document-audit-logs.ts
 msgctxt "Audit log format"
 msgid "Document viewed"
@@ -4954,6 +5009,10 @@ msgstr "Email transport"
 #: apps/remix/app/routes/_authenticated+/admin+/email-transports._index.tsx
 msgid "Email Transports"
 msgstr "Email Transports"
+
+#: apps/remix/app/components/general/organisations/organisation-quota-banner.tsx
+msgid "Email usage is approaching fair use limits"
+msgstr "Email usage is approaching fair use limits"
 
 #: apps/remix/app/components/general/document-signing/access-auth-2fa-form.tsx
 msgid "Email verification"
@@ -5769,6 +5828,11 @@ msgctxt "Subscription status"
 msgid "Free"
 msgstr "Free"
 
+#: apps/remix/app/components/tables/user-billing-organisations-table.tsx
+msgctxt "Subscription status"
+msgid "Free (Pending)"
+msgstr "Free (Pending)"
+
 #: packages/lib/utils/fields.ts
 #: packages/ui/primitives/document-flow/types.ts
 msgid "Free Signature"
@@ -6047,6 +6111,17 @@ msgstr "Hide"
 msgid "Hide license key"
 msgstr "Hide license key"
 
+#: packages/lib/utils/fields.ts
+#: packages/ui/primitives/document-flow/add-fields.tsx
+#: packages/ui/primitives/document-flow/types.ts
+#: packages/ui/primitives/template-flow/add-template-fields.tsx
+msgid "Highlight"
+msgstr "Highlight"
+
+#: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-page.tsx
+msgid "Highlight Settings"
+msgstr "Highlight Settings"
+
 #: apps/remix/app/components/dialogs/folder-move-dialog.tsx
 #: apps/remix/app/components/general/folder/folder-grid.tsx
 #: apps/remix/app/components/general/generic-error-layout.tsx
@@ -6138,6 +6213,7 @@ msgid "Identifying recipients"
 msgstr "Identifying recipients"
 
 #: apps/remix/app/components/general/organisations/organisation-billing-banner.tsx
+#: apps/remix/app/components/general/organisations/organisation-billing-banner.tsx
 msgid "If there is any issue with your subscription, please contact us at <0>{SUPPORT_EMAIL}</0>."
 msgstr "If there is any issue with your subscription, please contact us at <0>{SUPPORT_EMAIL}</0>."
 
@@ -6164,6 +6240,10 @@ msgstr "If you do not want to use the authenticator prompted, you can close it, 
 #: apps/remix/app/routes/_unauthenticated+/unverified-account.tsx
 msgid "If you don't find the confirmation link in your inbox, you can request a new one below."
 msgstr "If you don't find the confirmation link in your inbox, you can request a new one below."
+
+#: packages/email/templates/organisation-limit-alert.tsx
+msgid "If you expect to need higher limits, please contact support at {SUPPORT_EMAIL} and we will review your account."
+msgstr "If you expect to need higher limits, please contact support at {SUPPORT_EMAIL} and we will review your account."
 
 #: apps/remix/app/components/forms/2fa/enable-authenticator-app-dialog.tsx
 msgid "If your authenticator app does not support QR codes, you can use the following code instead:"
@@ -6772,6 +6852,7 @@ msgid "Manage billing"
 msgstr "Manage billing"
 
 #: apps/remix/app/components/general/organisations/organisation-billing-banner.tsx
+#: apps/remix/app/components/general/organisations/organisation-billing-banner.tsx
 #: apps/remix/app/components/tables/user-billing-organisations-table.tsx
 msgid "Manage Billing"
 msgstr "Manage Billing"
@@ -6920,6 +7001,17 @@ msgstr "Mark as viewed"
 #: apps/remix/app/components/general/document-signing/document-signing-complete-dialog.tsx
 msgid "Mark as Viewed"
 msgstr "Mark as Viewed"
+
+#: packages/lib/utils/fields.ts
+#: packages/ui/primitives/document-flow/add-fields.tsx
+#: packages/ui/primitives/document-flow/types.ts
+#: packages/ui/primitives/template-flow/add-template-fields.tsx
+msgid "Mark on Picture"
+msgstr "Mark on Picture"
+
+#: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-page.tsx
+msgid "Mark on Picture Settings"
+msgstr "Mark on Picture Settings"
 
 #: apps/remix/app/routes/_authenticated+/admin+/stats.tsx
 msgid "MAU (created document)"
@@ -7288,6 +7380,10 @@ msgstr "No emails configured for this domain."
 msgid "No features enabled"
 msgstr "No features enabled"
 
+#: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-page-renderer.tsx
+msgid "No field type matching this description was found."
+msgstr "No field type matching this description was found."
+
 #: apps/remix/app/components/dialogs/ai-field-detection-dialog.tsx
 msgid "No fields were detected in your document."
 msgstr "No fields were detected in your document."
@@ -7396,6 +7492,10 @@ msgstr "No results found."
 #: packages/ui/primitives/document-flow/missing-signature-field-dialog.tsx
 msgid "No signature field found"
 msgstr "No signature field found"
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
+msgid "No signing credentials available"
+msgstr "No signing credentials available"
 
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 msgid "No Stripe customer attached"
@@ -7708,9 +7808,9 @@ msgstr "Organisation Name"
 msgid "Organisation not found"
 msgstr "Organisation not found"
 
-#: packages/email/templates/organisation-limit-exceeded.tsx
-#: packages/email/templates/organisation-limit-exceeded.tsx
-#: packages/lib/jobs/definitions/emails/send-organisation-limit-exceeded-email.handler.ts
+#: packages/email/templates/organisation-limit-alert.tsx
+#: packages/email/templates/organisation-limit-alert.tsx
+#: packages/lib/jobs/definitions/emails/send-organisation-limit-alert-email.handler.ts
 msgid "Organisation Review Required"
 msgstr "Organisation Review Required"
 
@@ -7961,6 +8061,11 @@ msgstr "Past Due"
 msgid "Payment overdue"
 msgstr "Payment overdue"
 
+#: apps/remix/app/components/general/organisations/organisation-billing-banner.tsx
+#: apps/remix/app/components/general/organisations/organisation-billing-banner.tsx
+msgid "Payment required"
+msgstr "Payment required"
+
 #: apps/remix/app/components/dialogs/envelope-download-dialog.tsx
 msgid "PDF Document"
 msgstr "PDF Document"
@@ -8147,7 +8252,7 @@ msgstr "Please confirm your email address"
 msgid "Please contact <0>support</0> if you have any questions."
 msgstr "Please contact <0>support</0> if you have any questions."
 
-#: packages/email/templates/organisation-limit-exceeded.tsx
+#: packages/email/templates/organisation-limit-alert.tsx
 msgid "Please contact support at {SUPPORT_EMAIL} and we will review your account."
 msgstr "Please contact support at {SUPPORT_EMAIL} and we will review your account."
 
@@ -8158,6 +8263,10 @@ msgstr "Please contact support if you would like to revert this action."
 #: apps/remix/app/components/embed/multisign/multi-sign-document-list.tsx
 msgid "Please contact the site owner for further assistance."
 msgstr "Please contact the site owner for further assistance."
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-signing-in-progress-page.tsx
+msgid "Please don't close this tab. The signing provider is finalising your signature."
+msgstr "Please don't close this tab. The signing provider is finalising your signature."
 
 #: apps/remix/app/components/forms/token.tsx
 msgid "Please enter a meaningful name for your token. This will help you identify it later."
@@ -8548,6 +8657,10 @@ msgstr "Reason must be less than 500 characters"
 msgid "Reauthentication is required to sign this field"
 msgstr "Reauthentication is required to sign this field"
 
+#: apps/remix/app/components/general/document-signing/csc-recipient-signing-in-progress-page.tsx
+msgid "Reauthorise and retry"
+msgstr "Reauthorise and retry"
+
 #: packages/ui/components/recipient/recipient-role-select.tsx
 msgid "Receives copy"
 msgstr "Receives copy"
@@ -8588,6 +8701,14 @@ msgstr "Recipient action authentication"
 #: packages/lib/utils/document-audit-logs.ts
 msgid "Recipient approved the document"
 msgstr "Recipient approved the document"
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "Recipient authenticated with the signing provider"
+msgstr "Recipient authenticated with the signing provider"
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "Recipient authorised the remote signature"
+msgstr "Recipient authorised the remote signature"
 
 #: packages/lib/utils/document-audit-logs.ts
 msgid "Recipient CC'd the document"
@@ -8631,6 +8752,10 @@ msgstr "Recipient removed email"
 msgid "Recipient requested a 2FA token for the document"
 msgstr "Recipient requested a 2FA token for the document"
 
+#: packages/lib/utils/document-audit-logs.ts
+msgid "Recipient requested a remote signature"
+msgstr "Recipient requested a remote signature"
+
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Recipient signed"
 msgstr "Recipient signed"
@@ -8667,6 +8792,14 @@ msgstr "Recipient validated a 2FA token for the document"
 #: packages/lib/utils/document-audit-logs.ts
 msgid "Recipient viewed the document"
 msgstr "Recipient viewed the document"
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "Recipient's remote signature was applied"
+msgstr "Recipient's remote signature was applied"
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "Recipient's signing provider authentication failed"
+msgstr "Recipient's signing provider authentication failed"
 
 #: apps/remix/app/components/embed/authoring/configure-document-recipients.tsx
 #: apps/remix/app/components/general/document/document-page-view-recipients.tsx
@@ -9331,6 +9464,10 @@ msgstr "Select"
 msgid "Select a destination for this folder."
 msgstr "Select a destination for this folder."
 
+#: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-page-renderer.tsx
+msgid "Select a field type"
+msgstr "Select a field type"
+
 #: apps/remix/app/components/dialogs/document-move-to-folder-dialog.tsx
 msgid "Select a folder to move this document to."
 msgstr "Select a folder to move this document to."
@@ -9426,6 +9563,10 @@ msgstr "Select groups of members to add to the team."
 #: apps/remix/app/components/dialogs/team-group-create-dialog.tsx
 msgid "Select groups to add to this team"
 msgstr "Select groups to add to this team"
+
+#: apps/remix/app/components/dialogs/sign-field-highlight-dialog.tsx
+msgid "Select Highlight Color"
+msgstr "Select Highlight Color"
 
 #: apps/remix/app/components/general/organisation-members-multiselect-combobox.tsx
 #: apps/remix/app/components/general/organisation-members-multiselect-combobox.tsx
@@ -9936,10 +10077,18 @@ msgctxt "Recipient role progressive verb"
 msgid "Signing"
 msgstr "Signing"
 
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
+msgid "Signing algorithm is not supported"
+msgstr "Signing algorithm is not supported"
+
 #: apps/remix/app/routes/_internal+/[__htmltopdf]+/certificate.tsx
 #: packages/lib/server-only/pdf/render-certificate.ts
 msgid "Signing Certificate"
 msgstr "Signing Certificate"
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
+msgid "Signing certificate is invalid"
+msgstr "Signing certificate is invalid"
 
 #: apps/remix/app/routes/_internal+/[__htmltopdf]+/certificate.tsx
 #: packages/lib/server-only/pdf/render-certificate.ts
@@ -9954,6 +10103,10 @@ msgstr "Signing Complete!"
 #: apps/remix/app/routes/_recipient+/sign.$token+/expired.tsx
 msgid "Signing Deadline Expired"
 msgstr "Signing Deadline Expired"
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-signing-in-progress-page.tsx
+msgid "Signing failed"
+msgstr "Signing failed"
 
 #: apps/remix/app/components/embed/embed-document-signing-page-v1.tsx
 msgid "Signing for"
@@ -10081,6 +10234,10 @@ msgstr "Some signers have not been assigned a signature field. Please assign at 
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
+#: apps/remix/app/components/general/document-signing/csc-recipient-signing-in-progress-page.tsx
+msgid "Something went wrong while applying your signature. Please retry."
+msgstr "Something went wrong while applying your signature. Please retry."
+
 #. placeholder {0}: data.teamName
 #: apps/remix/app/routes/_unauthenticated+/team.verify.email.$token.tsx
 msgid "Something went wrong while attempting to verify your email address for <0>{0}</0>. Please try again later."
@@ -10101,6 +10258,10 @@ msgstr "Something went wrong while loading the document."
 #: apps/remix/app/components/general/document-signing/document-signing-auth-passkey.tsx
 msgid "Something went wrong while loading your passkeys."
 msgstr "Something went wrong while loading your passkeys."
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
+msgid "Something went wrong while preparing the remote signature. Please try again."
+msgstr "Something went wrong while preparing the remote signature. Please try again."
 
 #: packages/lib/constants/pdf-viewer-i18n.ts
 msgid "Something went wrong while rendering the document, please try again or contact our support."
@@ -10179,6 +10340,10 @@ msgstr "Spanish"
 #: apps/remix/app/routes/_authenticated+/o.$orgUrl.settings._layout.tsx
 msgid "SSO"
 msgstr "SSO"
+
+#: apps/remix/app/components/dialogs/sign-field-highlight-dialog.tsx
+msgid "Start Highlighting"
+msgstr "Start Highlighting"
 
 #: apps/remix/app/routes/_authenticated+/admin+/_layout.tsx
 msgid "Stats"
@@ -11119,6 +11284,10 @@ msgstr "The signing deadline for this document has passed. Please contact the do
 msgid "The signing link has been copied to your clipboard."
 msgstr "The signing link has been copied to your clipboard."
 
+#: apps/remix/app/components/general/document-signing/csc-recipient-signing-in-progress-page.tsx
+msgid "The signing provider did not respond in time. Please retry."
+msgstr "The signing provider did not respond in time. Please retry."
+
 #: packages/email/templates/recipient-expired.tsx
 msgid "The signing window for \"{recipientName}\" on document \"{documentName}\" has expired."
 msgstr "The signing window for \"{recipientName}\" on document \"{documentName}\" has expired."
@@ -11443,6 +11612,10 @@ msgstr "This item cannot be deleted"
 #: apps/remix/app/routes/_unauthenticated+/team.verify.email.$token.tsx
 msgid "This link is invalid or has expired. Please contact your team to resend a verification."
 msgstr "This link is invalid or has expired. Please contact your team to resend a verification."
+
+#: apps/remix/app/components/general/organisations/organisation-billing-banner.tsx
+msgid "This organisation is awaiting payment. Complete checkout to unlock it."
+msgstr "This organisation is awaiting payment. Complete checkout to unlock it."
 
 #: apps/remix/app/routes/_unauthenticated+/organisation.sso.confirmation.$token.tsx
 msgid "This organisation will have administrative control over your account. You can revoke this access later, but they will retain access to any data they've already collected."
@@ -11843,6 +12016,7 @@ msgstr "Triggers"
 #: apps/remix/app/components/dialogs/ai-field-detection-dialog.tsx
 #: apps/remix/app/components/dialogs/ai-recipient-detection-dialog.tsx
 #: apps/remix/app/components/dialogs/ai-recipient-detection-dialog.tsx
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
 msgid "Try again"
 msgstr "Try again"
 
@@ -11994,6 +12168,10 @@ msgstr "Unable to setup two-factor authentication"
 #: apps/remix/app/components/forms/signin.tsx
 msgid "Unable to sign in"
 msgstr "Unable to sign in"
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
+msgid "Unable to start the signing flow"
+msgstr "Unable to start the signing flow"
 
 #: apps/remix/app/components/general/document-signing/document-signing-auth-2fa.tsx
 #: apps/remix/app/components/general/document-signing/document-signing-auth-passkey.tsx
@@ -13107,15 +13285,15 @@ msgstr "We're still waiting for other signers to sign this document.<0/>We'll no
 msgid "We've changed your password as you asked. You can now sign in with your new password."
 msgstr "We've changed your password as you asked. You can now sign in with your new password."
 
-#: packages/email/templates/organisation-limit-exceeded.tsx
+#: packages/email/templates/organisation-limit-alert.tsx
 msgid "We've noticed API activity on your account that exceeds the fair use limits of your current plan. As a precaution, new API activity has been temporarily paused pending review."
 msgstr "We've noticed API activity on your account that exceeds the fair use limits of your current plan. As a precaution, new API activity has been temporarily paused pending review."
 
-#: packages/email/templates/organisation-limit-exceeded.tsx
+#: packages/email/templates/organisation-limit-alert.tsx
 msgid "We've noticed document activity on your account that exceeds the fair use limits of your current plan. As a precaution, new document activity has been temporarily paused pending review."
 msgstr "We've noticed document activity on your account that exceeds the fair use limits of your current plan. As a precaution, new document activity has been temporarily paused pending review."
 
-#: packages/email/templates/organisation-limit-exceeded.tsx
+#: packages/email/templates/organisation-limit-alert.tsx
 msgid "We've noticed email sending activity on your account that exceeds the fair use limits of your current plan. As a precaution, new email activity has been temporarily paused pending review."
 msgstr "We've noticed email sending activity on your account that exceeds the fair use limits of your current plan. As a precaution, new email activity has been temporarily paused pending review."
 
@@ -13468,6 +13646,14 @@ msgstr "You are not authorized to enable this user."
 #: apps/remix/app/components/dialogs/admin-user-reset-two-factor-dialog.tsx
 msgid "You are not authorized to reset two factor authentcation for this user."
 msgstr "You are not authorized to reset two factor authentcation for this user."
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "You authenticated with the signing provider"
+msgstr "You authenticated with the signing provider"
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "You authorised the remote signature"
+msgstr "You authorised the remote signature"
 
 #: apps/remix/app/components/dialogs/ai-field-detection-dialog.tsx
 msgid "You can add fields manually in the editor."
@@ -13940,6 +14126,10 @@ msgstr "You replaced the PDF for envelope item {0}"
 msgid "You requested a 2FA token for the document"
 msgstr "You requested a 2FA token for the document"
 
+#: packages/lib/utils/document-audit-logs.ts
+msgid "You requested a remote signature"
+msgstr "You requested a remote signature"
+
 #. placeholder {0}: data.recipientEmail
 #: packages/lib/utils/document-audit-logs.ts
 msgid "You resent an email to {0}"
@@ -14270,17 +14460,37 @@ msgstr "Your organisation has exceeded a fair use limit. Please contact <0>suppo
 msgid "Your organisation has reached its plan's fair use limit. Please contact your organisation administrator or support to continue."
 msgstr "Your organisation has reached its plan's fair use limit. Please contact your organisation administrator or support to continue."
 
-#: packages/email/templates/organisation-limit-exceeded.tsx
+#: apps/remix/app/components/general/organisations/organisation-quota-banner.tsx
+msgid "Your organisation is approaching a fair use limit"
+msgstr "Your organisation is approaching a fair use limit"
+
+#: apps/remix/app/components/general/organisations/organisation-quota-banner.tsx
+msgid "Your organisation is approaching a fair use limit. If you expect to need higher limits, please contact <0>support</0> to review your plan's limits."
+msgstr "Your organisation is approaching a fair use limit. If you expect to need higher limits, please contact <0>support</0> to review your plan's limits."
+
+#: packages/email/templates/organisation-limit-alert.tsx
 msgid "Your organisation is generating API requests faster than normal, so some requests are being temporarily throttled."
 msgstr "Your organisation is generating API requests faster than normal, so some requests are being temporarily throttled."
 
-#: packages/email/templates/organisation-limit-exceeded.tsx
+#: packages/email/templates/organisation-limit-alert.tsx
 msgid "Your organisation is generating documents faster than normal, so some requests are being temporarily throttled."
 msgstr "Your organisation is generating documents faster than normal, so some requests are being temporarily throttled."
 
-#: packages/email/templates/organisation-limit-exceeded.tsx
+#: packages/email/templates/organisation-limit-alert.tsx
 msgid "Your organisation is generating emails faster than normal, so some requests are being temporarily throttled."
 msgstr "Your organisation is generating emails faster than normal, so some requests are being temporarily throttled."
+
+#: packages/email/templates/organisation-limit-alert.tsx
+msgid "Your organisation is nearing its fair use limits for creating documents on your current plan. Once the limit is reached, new document activity will be temporarily paused."
+msgstr "Your organisation is nearing its fair use limits for creating documents on your current plan. Once the limit is reached, new document activity will be temporarily paused."
+
+#: packages/email/templates/organisation-limit-alert.tsx
+msgid "Your organisation is nearing its fair use limits for making API requests on your current plan. Once the limit is reached, new API activity will be temporarily paused."
+msgstr "Your organisation is nearing its fair use limits for making API requests on your current plan. Once the limit is reached, new API activity will be temporarily paused."
+
+#: packages/email/templates/organisation-limit-alert.tsx
+msgid "Your organisation is nearing its fair use limits for sending email on your current plan. Once the limit is reached, new email activity will be temporarily paused."
+msgstr "Your organisation is nearing its fair use limits for sending email on your current plan. Once the limit is reached, new email activity will be temporarily paused."
 
 #: apps/remix/app/components/forms/password.tsx
 #: apps/remix/app/components/forms/reset-password.tsx
@@ -14327,6 +14537,30 @@ msgstr "Your recovery code has been copied to your clipboard."
 #: apps/remix/app/components/forms/2fa/view-recovery-codes-dialog.tsx
 msgid "Your recovery codes are listed below. Please store them in a safe place."
 msgstr "Your recovery codes are listed below. Please store them in a safe place."
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "Your remote signature was applied"
+msgstr "Your remote signature was applied"
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-signing-in-progress-page.tsx
+msgid "Your signing authorisation expired before the signature could be applied. Please reauthorise to retry."
+msgstr "Your signing authorisation expired before the signature could be applied. Please reauthorise to retry."
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
+msgid "Your signing certificate is invalid, expired, or missing a required key. Contact your administrator or signing provider for assistance."
+msgstr "Your signing certificate is invalid, expired, or missing a required key. Contact your administrator or signing provider for assistance."
+
+#: packages/lib/utils/document-audit-logs.ts
+msgid "Your signing provider authentication failed"
+msgstr "Your signing provider authentication failed"
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
+msgid "Your signing provider does not advertise a signing algorithm this document accepts. Contact your administrator or signing provider for assistance."
+msgstr "Your signing provider does not advertise a signing algorithm this document accepts. Contact your administrator or signing provider for assistance."
+
+#: apps/remix/app/components/general/document-signing/csc-recipient-blocked-page.tsx
+msgid "Your signing provider returned no usable credentials for this account. Contact your administrator or signing provider for assistance."
+msgstr "Your signing provider returned no usable credentials for this account. Contact your administrator or signing provider for assistance."
 
 #: apps/remix/app/components/embed/embed-recipient-expired.tsx
 msgid "Your signing window for this document has expired. Please contact the sender for a new invitation."
