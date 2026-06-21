@@ -1,4 +1,3 @@
-import { mailer } from '@documenso/email/mailer';
 import RecipientRemovedFromDocumentTemplate from '@documenso/email/templates/recipient-removed-from-document';
 import { DOCUMENT_AUDIT_LOG_TYPE } from '@documenso/lib/types/document-audit-logs';
 import type { ApiRequestMetadata } from '@documenso/lib/universal/extract-request-metadata';
@@ -17,6 +16,7 @@ import { canRecipientBeModified, isRecipientEmailValidForSending } from '../../u
 import { renderEmailWithI18N } from '../../utils/render-email-with-i18n';
 import { buildTeamWhereQuery } from '../../utils/teams';
 import { getEmailContext } from '../email/get-email-context';
+import { assertEnvelopeMutable } from '../envelope/assert-envelope-mutable';
 import { getEnvelopeWhereInput } from '../envelope/get-envelope-by-id';
 import { assertOrganisationRatesAndLimits } from '../rate-limit/assert-organisation-rates-and-limits';
 
@@ -73,6 +73,8 @@ export const deleteEnvelopeRecipient = async ({
     });
   }
 
+  assertEnvelopeMutable(envelope);
+
   if (envelope.completedAt) {
     throw new AppError(AppErrorCode.INVALID_REQUEST, {
       message: 'Document already complete',
@@ -110,6 +112,8 @@ export const deleteEnvelopeRecipient = async ({
   });
 
   const deletedRecipient = await prisma.$transaction(async (tx) => {
+    await assertEnvelopeMutable(envelope, tx);
+
     if (envelope.type === EnvelopeType.DOCUMENT) {
       await tx.documentAuditLog.create({
         data: createDocumentAuditLogData({
@@ -152,7 +156,16 @@ export const deleteEnvelopeRecipient = async ({
       assetBaseUrl,
     });
 
-    const { branding, emailLanguage, senderEmail, replyToEmail, organisationId, claims } = await getEmailContext({
+    const {
+      branding,
+      emailLanguage,
+      senderEmail,
+      replyToEmail,
+      organisationId,
+      claims,
+      emailsDisabled,
+      emailTransport,
+    } = await getEmailContext({
       emailType: 'RECIPIENT',
       source: {
         type: 'team',
@@ -160,6 +173,11 @@ export const deleteEnvelopeRecipient = async ({
       },
       meta: envelope.documentMeta,
     });
+
+    // Don't send the removal email if the organisation has email sending disabled.
+    if (emailsDisabled) {
+      return deletedRecipient;
+    }
 
     // Meter the removal email against the organisation email quota/stats.
     // Add/remove churn can be used to blast unsolicited removal emails
@@ -189,7 +207,7 @@ export const deleteEnvelopeRecipient = async ({
 
     const i18n = await getI18nInstance(emailLanguage);
 
-    await mailer.sendMail({
+    await emailTransport.sendMail({
       to: {
         address: recipientToDelete.email,
         name: recipientToDelete.name,

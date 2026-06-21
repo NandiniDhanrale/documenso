@@ -1,4 +1,3 @@
-import { mailer } from '@documenso/email/mailer';
 import RecipientRemovedFromDocumentTemplate from '@documenso/email/templates/recipient-removed-from-document';
 import { DOCUMENT_AUDIT_LOG_TYPE } from '@documenso/lib/types/document-audit-logs';
 import type { TRecipientAccessAuthTypes } from '@documenso/lib/types/document-auth';
@@ -23,7 +22,9 @@ import { logger } from '../../utils/logger';
 import { canRecipientBeModified, isRecipientEmailValidForSending } from '../../utils/recipients';
 import { renderEmailWithI18N } from '../../utils/render-email-with-i18n';
 import { getEmailContext } from '../email/get-email-context';
+import { assertEnvelopeMutable } from '../envelope/assert-envelope-mutable';
 import { getEnvelopeWhereInput } from '../envelope/get-envelope-by-id';
+import { assertCompatibleRecipientRole } from '../signature-level/assert-compatible-recipient-role';
 import { assertOrganisationRatesAndLimits } from '../rate-limit/assert-organisation-rates-and-limits';
 
 export interface SetDocumentRecipientsOptions {
@@ -81,18 +82,21 @@ export const setDocumentRecipients = async ({
     throw new Error('Document not found');
   }
 
+  assertEnvelopeMutable(envelope);
+
   if (envelope.completedAt) {
     throw new Error('Document already complete');
   }
 
-  const { branding, emailLanguage, senderEmail, replyToEmail, organisationId, claims } = await getEmailContext({
-    emailType: 'RECIPIENT',
-    source: {
-      type: 'team',
-      teamId,
-    },
-    meta: envelope.documentMeta,
-  });
+  const { branding, emailLanguage, senderEmail, replyToEmail, organisationId, claims, emailsDisabled, emailTransport } =
+    await getEmailContext({
+      emailType: 'RECIPIENT',
+      source: {
+        type: 'team',
+        teamId,
+      },
+      meta: envelope.documentMeta,
+    });
 
   const recipientsHaveActionAuth = recipients.some(
     (recipient) => recipient.actionAuth && recipient.actionAuth.length > 0,
@@ -102,6 +106,13 @@ export const setDocumentRecipients = async ({
   if (recipientsHaveActionAuth && !envelope.team.organisation.organisationClaim.flags.cfr21) {
     throw new AppError(AppErrorCode.UNAUTHORIZED, {
       message: 'You do not have permission to set the action auth',
+    });
+  }
+
+  for (const recipient of recipients) {
+    assertCompatibleRecipientRole({
+      signatureLevel: envelope.signatureLevel,
+      role: recipient.role,
     });
   }
 
@@ -139,6 +150,8 @@ export const setDocumentRecipients = async ({
   });
 
   const persistedRecipients = await prisma.$transaction(async (tx) => {
+    await assertEnvelopeMutable(envelope, tx);
+
     return await Promise.all(
       linkedRecipients.map(async (recipient) => {
         let authOptions = ZRecipientAuthOptionsSchema.parse(recipient._persisted?.authOptions);
@@ -281,6 +294,7 @@ export const setDocumentRecipients = async ({
     await Promise.all(
       removedRecipients.map(async (recipient) => {
         if (
+          emailsDisabled ||
           recipient.sendStatus !== SendStatus.SENT ||
           recipient.role === RecipientRole.CC ||
           !isRecipientRemovedEmailEnabled ||
@@ -324,7 +338,7 @@ export const setDocumentRecipients = async ({
 
         const i18n = await getI18nInstance(emailLanguage);
 
-        await mailer.sendMail({
+        await emailTransport.sendMail({
           to: {
             address: recipient.email,
             name: recipient.name,

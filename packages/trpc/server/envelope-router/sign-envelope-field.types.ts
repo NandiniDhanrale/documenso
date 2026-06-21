@@ -45,6 +45,39 @@ export const ZSignEnvelopeFieldValue = z.discriminatedUnion('type', [
     type: z.literal(FieldType.SIGNATURE),
     value: z.string().nullable(),
   }),
+  z.object({
+    type: z.literal(FieldType.MARK_ON_PICTURE),
+    value: z
+      .array(
+        z.object({
+          id: z.number(),
+          x: z.number(),
+          y: z.number(),
+          label: z.string().optional(),
+        }),
+      )
+      .nullable(),
+  }),
+  z.object({
+    type: z.literal(FieldType.HIGHLIGHT),
+    value: z
+      .array(
+        z.object({
+          id: z.number(),
+          color: z.string(),
+          pageNumber: z.number(),
+          bounds: z.array(
+            z.object({
+              x: z.number(),
+              y: z.number(),
+              width: z.number(),
+              height: z.number(),
+            }),
+          ),
+        }),
+      )
+      .nullable(),
+  }),
 ]);
 
 export const ZSignEnvelopeFieldRequestSchema = z.object({

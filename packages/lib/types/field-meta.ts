@@ -178,6 +178,45 @@ export const ZDropdownFieldMeta = ZBaseFieldMeta.extend({
 
 export type TDropdownFieldMeta = z.infer<typeof ZDropdownFieldMeta>;
 
+export const ZMarkOnPictureFieldMeta = ZBaseFieldMeta.extend({
+  type: z.literal('mark_on_picture'),
+  marks: z
+    .array(
+      z.object({
+        id: z.number(),
+        x: z.number(),
+        y: z.number(),
+        label: z.string().optional(),
+      }),
+    )
+    .optional(),
+});
+
+export type TMarkOnPictureFieldMeta = z.infer<typeof ZMarkOnPictureFieldMeta>;
+
+export const ZHighlightFieldMeta = ZBaseFieldMeta.extend({
+  type: z.literal('highlight'),
+  highlights: z
+    .array(
+      z.object({
+        id: z.number(),
+        color: z.string(),
+        pageNumber: z.number(),
+        bounds: z.array(
+          z.object({
+            x: z.number(),
+            y: z.number(),
+            width: z.number(),
+            height: z.number(),
+          }),
+        ),
+      }),
+    )
+    .optional(),
+});
+
+export type THighlightFieldMeta = z.infer<typeof ZHighlightFieldMeta>;
+
 export const ZSignatureFieldMeta = ZBaseFieldMeta.extend({
   type: z.literal('signature'),
   overflow: ZFieldOverflowMode.optional().default(DEFAULT_SIGNATURE_OVERFLOW_MODE),
@@ -196,6 +235,8 @@ export const ZFieldMetaNotOptionalSchema = z.discriminatedUnion('type', [
   ZRadioFieldMeta,
   ZCheckboxFieldMeta,
   ZDropdownFieldMeta,
+  ZMarkOnPictureFieldMeta,
+  ZHighlightFieldMeta,
 ]);
 
 export type TFieldMetaNotOptionalSchema = z.infer<typeof ZFieldMetaNotOptionalSchema>;
@@ -300,6 +341,14 @@ export const ZFieldAndMetaSchema = z.discriminatedUnion('type', [
     type: z.literal(FieldType.DROPDOWN),
     fieldMeta: ZDropdownFieldMeta.optional(),
   }),
+  z.object({
+    type: z.literal(FieldType.MARK_ON_PICTURE),
+    fieldMeta: ZMarkOnPictureFieldMeta.optional(),
+  }),
+  z.object({
+    type: z.literal(FieldType.HIGHLIGHT),
+    fieldMeta: ZHighlightFieldMeta.optional(),
+  }),
 ]);
 
 export type TFieldAndMeta = z.infer<typeof ZFieldAndMetaSchema>;
@@ -386,6 +435,18 @@ export const FIELD_SIGNATURE_META_DEFAULT_VALUES: TSignatureFieldMeta = {
   overflow: DEFAULT_SIGNATURE_OVERFLOW_MODE,
 };
 
+export const FIELD_MARK_ON_PICTURE_META_DEFAULT_VALUES: TMarkOnPictureFieldMeta = {
+  type: 'mark_on_picture',
+  fontSize: DEFAULT_FIELD_FONT_SIZE,
+  marks: [],
+};
+
+export const FIELD_HIGHLIGHT_META_DEFAULT_VALUES: THighlightFieldMeta = {
+  type: 'highlight',
+  fontSize: DEFAULT_FIELD_FONT_SIZE,
+  highlights: [],
+};
+
 export const FIELD_META_DEFAULT_VALUES: Record<FieldType, TFieldMetaSchema> = {
   [FieldType.SIGNATURE]: FIELD_SIGNATURE_META_DEFAULT_VALUES,
   [FieldType.FREE_SIGNATURE]: undefined,
@@ -398,6 +459,8 @@ export const FIELD_META_DEFAULT_VALUES: Record<FieldType, TFieldMetaSchema> = {
   [FieldType.RADIO]: FIELD_RADIO_META_DEFAULT_VALUES,
   [FieldType.CHECKBOX]: FIELD_CHECKBOX_META_DEFAULT_VALUES,
   [FieldType.DROPDOWN]: FIELD_DROPDOWN_META_DEFAULT_VALUES,
+  [FieldType.MARK_ON_PICTURE]: FIELD_MARK_ON_PICTURE_META_DEFAULT_VALUES,
+  [FieldType.HIGHLIGHT]: FIELD_HIGHLIGHT_META_DEFAULT_VALUES,
 } as const;
 
 export const ZEnvelopeFieldAndMetaSchema = z.discriminatedUnion('type', [
@@ -444,6 +507,14 @@ export const ZEnvelopeFieldAndMetaSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal(FieldType.DROPDOWN),
     fieldMeta: ZDropdownFieldMeta.optional().default(FIELD_DROPDOWN_META_DEFAULT_VALUES),
+  }),
+  z.object({
+    type: z.literal(FieldType.MARK_ON_PICTURE),
+    fieldMeta: ZMarkOnPictureFieldMeta.optional().default(FIELD_MARK_ON_PICTURE_META_DEFAULT_VALUES),
+  }),
+  z.object({
+    type: z.literal(FieldType.HIGHLIGHT),
+    fieldMeta: ZHighlightFieldMeta.optional().default(FIELD_HIGHLIGHT_META_DEFAULT_VALUES),
   }),
 ]);
 
